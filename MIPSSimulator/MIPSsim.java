@@ -61,7 +61,7 @@ class InstructionMemory{
 
 class RegisterFile{
 	String fileName = "registers.txt";
-	String register;
+	String register, regLine;
 	int value;
     List<Register> regList = new ArrayList<Register>();
 
@@ -88,6 +88,7 @@ class RegisterFile{
 
 class DataMemory{
 	String fileName = "datamemory.txt";
+	String addLine;
 	int address;
 	int value;
     List<Address> addList = new ArrayList<Address>();
@@ -117,7 +118,7 @@ class InstructionBuffer{
 	private String opCode, desReg;
 	private int srcOp1, srcOp2;
 
-	public InstructionBuffer(String, opCode, String, desReg, int srcOp1, int srcOp2){
+	public InstructionBuffer(String  opCode, String  desReg, int srcOp1, int srcOp2){
 		this.opCode = opCode;
 		this.desReg = desReg;
 		this.srcOp1 = srcOp1;
@@ -129,7 +130,7 @@ class ArithmeticInstructionBuffer{
 	private String opCode, desReg;
 	private int srcOp1, srcOp2;
 
-	public ArithmeticInstructionBuffer(String, opCode, String, desReg, int srcOp1, int srcOp2){
+	public ArithmeticInstructionBuffer(String  opCode, String  desReg, int srcOp1, int srcOp2){
 		this.opCode = opCode;
 		this.desReg = desReg;
 		this.srcOp1 = srcOp1;
@@ -141,7 +142,7 @@ class StoreInstructionBuffer{
 	private String opCode, desReg;
 	private int srcOp1, srcOp2;
 
-	public StoreInstructionBuffer(String, opCode, String, desReg, int srcOp1, int srcOp2){
+	public StoreInstructionBuffer(String  opCode, String  desReg, int srcOp1, int srcOp2){
 		this.opCode = opCode;
 		this.desReg = desReg;
 		this.srcOp1 = srcOp1;
@@ -167,7 +168,7 @@ class PartialResultBuffer{
 	private String opCode, desReg;
 	private int srcOp1, srcOp2;
 
-	public PartialResultBuffer(String, opCode, String, desReg, int srcOp1, int srcOp2){
+	public PartialResultBuffer(String  opCode, String  desReg, int srcOp1, int srcOp2){
 		this.opCode = opCode;
 		this.desReg = desReg;
 		this.srcOp1 = srcOp1;
@@ -230,7 +231,7 @@ class Address{
 		this.value = value;
 	}
 
-	public String getAddress(){
+	public int getAddress(){
 		return this.address;
 	}
 }
