@@ -113,6 +113,82 @@ class DataMemory{
 	}
 }
 
+class InstructionBuffer{
+	private String opCode, desReg;
+	private int srcOp1, srcOp2;
+
+	public InstructionBuffer(String, opCode, String, desReg, int srcOp1, int srcOp2){
+		this.opCode = opCode;
+		this.desReg = desReg;
+		this.srcOp1 = srcOp1;
+		this.srcOp2 = srcOp2;
+	}
+}
+
+class ArithmeticInstructionBuffer{
+	private String opCode, desReg;
+	private int srcOp1, srcOp2;
+
+	public ArithmeticInstructionBuffer(String, opCode, String, desReg, int srcOp1, int srcOp2){
+		this.opCode = opCode;
+		this.desReg = desReg;
+		this.srcOp1 = srcOp1;
+		this.srcOp2 = srcOp2;
+	}
+}
+
+class StoreInstructionBuffer{
+	private String opCode, desReg;
+	private int srcOp1, srcOp2;
+
+	public StoreInstructionBuffer(String, opCode, String, desReg, int srcOp1, int srcOp2){
+		this.opCode = opCode;
+		this.desReg = desReg;
+		this.srcOp1 = srcOp1;
+		this.srcOp2 = srcOp2;
+	}
+}
+
+class ResultBuffer{
+	private String register;
+	private int value;
+
+	public ResultBuffer(String register, int value){
+		this.register = register;
+		this.value = value;
+	}
+
+	public String getRegister(){
+		return this.register;
+	}
+}
+
+class PartialResultBuffer{
+	private String opCode, desReg;
+	private int srcOp1, srcOp2;
+
+	public PartialResultBuffer(String, opCode, String, desReg, int srcOp1, int srcOp2){
+		this.opCode = opCode;
+		this.desReg = desReg;
+		this.srcOp1 = srcOp1;
+		this.srcOp2 = srcOp2;
+	}
+}
+
+class AddressBuffer{
+	private String register;
+	private int address;
+
+	public AddressBuffer(String register, int address){
+		this.register = register;
+		this.address = address;
+	}
+
+	public String getRegister(){
+		return this.register;
+	}
+}
+
 class Instruction{
 	private String opCode;
 	private String desReg;

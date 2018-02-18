@@ -1,0 +1,3 @@
+How many tokens are present in INB ?
+What does it mean by Assume that it knows the top (in-order) instruction in the Instruction Memory (INM). ?
+It checks for the availability of the source operands in the Register File (RGF), if not available ?
