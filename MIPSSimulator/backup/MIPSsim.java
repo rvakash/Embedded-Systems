@@ -40,84 +40,83 @@ public class MIPSsim{
 	}
 
 	public void startSimulation(){
-		System.out.print("STEP " + i++);
 		display();	
 		// while(decCanFire() || iss1CanFire() || iss2CanFire() || asuCanFire() || mlu1CanFire() || addrCanFire() || mlu2CanFire() || strCanFire() || wrCanFire() || rdCanFire() ){
-		while(INM.instList.size() > 0 || INB != null || AIB != null || PRB != null || SIB != null || ADB != null || REB != null ){//|| iss2CanFire() || asuCanFire() || mlu1CanFire() || addrCanFire() || mlu2CanFire() || strCanFire() || wrCanFire() || rdCanFire() ){
-			System.out.print("STEP " + i++ + ":");
+		while(INM.instList.size() > 0 || INB != null || AIB != null || PRB != null || SIB != null || ADB != null || REB.resList.size() > 0 ){//|| iss2CanFire() || asuCanFire() || mlu1CanFire() || addrCanFire() || mlu2CanFire() || strCanFire() || wrCanFire() || rdCanFire() ){
+			System.out.println("STEP " + i);
 
-			if(REB != null){
-				// System.out.println("7");
-				writeFire();
-				// display();
-			}
-			if(ADB != null){
-				// System.out.println("6");
-				strFire();
-				// display();
-			}
-			if(SIB != null){
-				// System.out.println("5");
-				addrFire();
-				// display();
-			}
-			if(PRB != null){
-				// System.out.println("4");
-				mlu2Fire();
-				// display();
-			}
-			if(AIB != null){
-				// System.out.println("3");
-				if (AIB.opCode.equals("MUL")) mlu1Fire(); else asuFire();
-				// display();
+			if(INM.instList.size() > 0){
+				// System.out.println("1");
+				decRdFire();
+				display();
 			}
 			if(INB != null){
 				// System.out.println("2");
 				if (INB.opCode.equals("ST")) iss2Fire(); else iss1Fire();
-				// display();
+				display();
 			}
-			if(INM.instList.size() > 0){
-				// System.out.println("1");
-				decRdFire();
-				// display();
+			if(AIB != null){
+				// System.out.println("3");
+				if (AIB.opCode.equals("MUL")) mlu1Fire(); else asuFire();
+				display();
+			}
+			if(PRB != null){
+				// System.out.println("4");
+				mlu2Fire();
+				display();
+			}
+			if(SIB != null){
+				// System.out.println("5");
+				addrFire();
+				display();
+			}
+			if(ADB != null){
+				// System.out.println("6");
+				strFire();
+				display();
+			}
+			if(REB != null){
+				// System.out.println("7");
+				writeFire();
+				display();
 			}
 			// System.out.println("now");
-			display();
+			// display();
 		}
 	}
 
 	public void display(){
-		// System.out.print("STEP:" + i);
-		System.out.print("\nINM:");
+		System.out.print("STEP:" + i);
+		System.out.print("\nINM: ");
 		for(int j=0; j<INM.instList.size(); j++)
-			System.out.print("<"+INM.instList.get(j).opCode+","+INM.instList.get(j).desReg+","+INM.instList.get(j).srcOp1+","+INM.instList.get(j).srcOp2+">,");
+			System.out.print("<"+INM.instList.get(j).opCode+","+INM.instList.get(j).desReg+","+INM.instList.get(j).srcOp1+","+INM.instList.get(j).srcOp2+"> , ");
 		// System.out.print("\nINB: \nAIB: \nLIB: \nADB: \nREB: \nRGF: ");// + "<"+INB.opCode+","+INB.desReg+","+INB.srcOp1+","+INB.srcOp2+">");
 		// System.out.print("\nAIB: ");// + "<"+INB.opCode+","+INB.desReg+","+INB.srcOp1+","+INB.srcOp2+">");
 		// System.out.print("\nLIB: ");
 		// System.out.print("\nADB: ");
 		// System.out.print("\nREB: ");
 		// System.out.print("\nRGF: ");
-		System.out.print("\nINB:");
+		System.out.print("\nINB: ");
 		if(INB != null) System.out.print("<"+INB.opCode+","+INB.desReg+","+INB.srcOp1+","+INB.srcOp2+">");
-		System.out.print("\nAIB:");
+		System.out.print("\nAIB: ");
 		if(AIB != null) System.out.print("<"+AIB.opCode+","+AIB.desReg+","+AIB.srcOp1+","+AIB.srcOp2+">");
-		System.out.print("\nSIB:");
+		System.out.print("\nSIB: ");
 		if(SIB != null) System.out.print("<"+SIB.opCode+","+SIB.desReg+","+SIB.srcOp1+","+SIB.srcOp2+">");		
-		System.out.print("\nPRB:");
+		System.out.print("\nPRB: ");
 		if(PRB != null) System.out.print("<"+PRB.opCode+","+PRB.desReg+","+PRB.srcOp1+","+PRB.srcOp2+">");		
-		System.out.print("\nADB:");
+		System.out.print("\nADB: ");
 		if(ADB != null) System.out.print("<"+ADB.register+","+ADB.value+">");
-		System.out.print("\nREB:");
+		System.out.print("\nREB: ");
 		if(REB != null){
 			for(int j=0; j<REB.resList.size(); j++)
-				System.out.print("<"+REB.resList.get(j).register+","+REB.resList.get(j).value+">,");
+				System.out.print("<"+REB.resList.get(j).register+","+REB.resList.get(j).value+"> , ");
 		}
-		System.out.print("\nRGF:");
+		System.out.print("\nRGF: ");
 		for(int j=0; j<RGF.regList.size(); j++)
-			System.out.print("<"+RGF.regList.get(j).register+","+RGF.regList.get(j).value+">,");
-		System.out.print("\nDAM:");
+			System.out.print("<"+RGF.regList.get(j).register+","+RGF.regList.get(j).value+"> , ");
+		System.out.print("\nDAM: ");
 		for(int j=0; j<DAM.addList.size(); j++)
-			System.out.print("<"+DAM.addList.get(j).address+","+DAM.addList.get(j).value+">,");
+			System.out.print("<"+DAM.addList.get(j).address+","+DAM.addList.get(j).value+"> , ");
 		System.out.println("\n");
 	}
 
@@ -153,16 +152,12 @@ public class MIPSsim{
 	public void iss1Fire(){
 		AIB = new Buffer(INB.opCode, INB.desReg, INB.srcOp1, INB.srcOp2);
 		INB = null;
-		// if(INM.instList.size() > 0)
-		// 	decRdFire();
 		// System.out.println("AIB: "+ "<"+AIB.opCode+","+AIB.desReg+","+AIB.srcOp1+","+AIB.srcOp2+">");
 	}
 
 	public void iss2Fire(){
 		SIB = new Buffer(INB.opCode, INB.desReg, INB.srcOp1, INB.srcOp2);
 		INB = null;
-		// if(INM.instList.size() > 0)
-		// 	decRdFire();
 		// System.out.println("SIB: "+ "<"+SIB.opCode+","+SIB.desReg+","+SIB.srcOp1+","+SIB.srcOp2+">");		
 	}
 
@@ -170,8 +165,7 @@ public class MIPSsim{
 		int sum = AIB.opCode.equals("ADD") ? (AIB.srcOp1 + AIB.srcOp2):(AIB.srcOp1 - AIB.srcOp2); 
 		REG1 = new RegisterFormat(AIB.desReg, sum);
 		// System.out.println("REG1.value = " + REG1.value);
-		if(REB == null)
-			REB = new ResultBuffer();
+		REB = new ResultBuffer();
 		REB.storeResult(REG1);
 		AIB = null;
 		// System.out.print("REB: ");
@@ -188,8 +182,6 @@ public class MIPSsim{
 	public void mlu2Fire(){
 		int mul = PRB.srcOp1 * PRB.srcOp2;
 		REG2 = new RegisterFormat(PRB.desReg, mul);
-		if(REB == null)
-			REB = new ResultBuffer();
 		REB.storeResult(REG2);
 		PRB = null;
 	}
@@ -223,11 +215,7 @@ public class MIPSsim{
 		RGF.storeRegisters(REG3);
 		// System.out.println("here2");
 		REB.resList.remove(0);
-		// System.out.print("REB.resList.register = ");
-		if(REB.resList.size()==0)
-			REB = null;
-		// for(int h=0;h<REB.resList.size();h++)
-		// 	System.out.print(REB.resList.get(h) + " , ");
+		// System.out.println("here3");
 	}
 
 /*	public boolean decCanFire(){
@@ -291,17 +279,8 @@ class RegisterFile{
 	}
 
 	public void storeRegisters(RegisterFormat regToken){
-		// System.out.println("here11");
-		// int index = regList.indexOf(regToken.value);
-		int index = -1;
-		for(int indexL=0;indexL<regList.size();indexL++){
-			if(regToken.register.equals(regList.get(indexL).register)){
-				index = indexL;
-				break;
-			} else{
-				index = -1;
-			}			
-		}
+		System.out.println("here11");
+		int index = regList.indexOf(regToken.value);
 		if(index != -1){
 			regList.remove(index);
 			regList.add(regToken);
@@ -340,21 +319,7 @@ class DataMemory{
 	}
 
 	public void storeDataMemory(Address addrToken){
-		// System.out.println("addrToken.address = " + addrToken.address);
-		int index = -1;
-		// for(int h=0;h<addList.size();h++)
-		// 	System.out.print(addList.get(h).address + " , ");
-		for(int indexL=0;indexL<addList.size();indexL++){
-			if(addrToken.address == addList.get(indexL).address){
-				index = indexL;
-				break;
-			} else{
-				index = -1;
-			}
-			
-		}
-		// int index = addList.indexOf(addrToken.address);
-		// System.out.println("index = " + index);
+		int index = addList.indexOf(addrToken.value);
 		if(index != -1){
 			addList.remove(index);
 			addList.add(addrToken);
