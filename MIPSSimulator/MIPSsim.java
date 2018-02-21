@@ -40,11 +40,11 @@ public class MIPSsim{
 	}
 
 	public void startSimulation(){
-		System.out.print("STEP " + i++);
+		System.out.print("STEP " + i++ + ":");
 		display();	
 		// while(decCanFire() || iss1CanFire() || iss2CanFire() || asuCanFire() || mlu1CanFire() || addrCanFire() || mlu2CanFire() || strCanFire() || wrCanFire() || rdCanFire() ){
 		while(INM.instList.size() > 0 || INB != null || AIB != null || PRB != null || SIB != null || ADB != null || REB != null ){//|| iss2CanFire() || asuCanFire() || mlu1CanFire() || addrCanFire() || mlu2CanFire() || strCanFire() || wrCanFire() || rdCanFire() ){
-			System.out.print("STEP " + i++ + ":");
+			System.out.print("\nSTEP " + i++ + ":");
 
 			if(REB != null){
 				// System.out.println("7");
@@ -89,8 +89,9 @@ public class MIPSsim{
 	public void display(){
 		// System.out.print("STEP:" + i);
 		System.out.print("\nINM:");
-		for(int j=0; j<INM.instList.size(); j++)
-			System.out.print("<"+INM.instList.get(j).opCode+","+INM.instList.get(j).desReg+","+INM.instList.get(j).srcOp1+","+INM.instList.get(j).srcOp2+">,");
+		if(INM.instList.size() > 0) System.out.print("<"+INM.instList.get(0).opCode+","+INM.instList.get(0).desReg+","+INM.instList.get(0).srcOp1+","+INM.instList.get(0).srcOp2+">");
+		for(int j=1; j<INM.instList.size(); j++)
+			System.out.print(",<"+INM.instList.get(j).opCode+","+INM.instList.get(j).desReg+","+INM.instList.get(j).srcOp1+","+INM.instList.get(j).srcOp2+">");
 		// System.out.print("\nINB: \nAIB: \nLIB: \nADB: \nREB: \nRGF: ");// + "<"+INB.opCode+","+INB.desReg+","+INB.srcOp1+","+INB.srcOp2+">");
 		// System.out.print("\nAIB: ");// + "<"+INB.opCode+","+INB.desReg+","+INB.srcOp1+","+INB.srcOp2+">");
 		// System.out.print("\nLIB: ");
@@ -109,16 +110,17 @@ public class MIPSsim{
 		if(ADB != null) System.out.print("<"+ADB.register+","+ADB.value+">");
 		System.out.print("\nREB:");
 		if(REB != null){
-			for(int j=0; j<REB.resList.size(); j++)
-				System.out.print("<"+REB.resList.get(j).register+","+REB.resList.get(j).value+">,");
+			System.out.print("<"+REB.resList.get(0).register+","+REB.resList.get(0).value+">");
+			for(int j=1; j<REB.resList.size(); j++)
+				System.out.print(",<"+REB.resList.get(j).register+","+REB.resList.get(j).value+">");
 		}
-		System.out.print("\nRGF:");
-		for(int j=0; j<RGF.regList.size(); j++)
-			System.out.print("<"+RGF.regList.get(j).register+","+RGF.regList.get(j).value+">,");
-		System.out.print("\nDAM:");
-		for(int j=0; j<DAM.addList.size(); j++)
-			System.out.print("<"+DAM.addList.get(j).address+","+DAM.addList.get(j).value+">,");
-		System.out.println("\n");
+		System.out.print("\nRGF:" + "<"+RGF.regList.get(0).register+","+RGF.regList.get(0).value+">");
+		for(int j=1; j<RGF.regList.size(); j++)
+			System.out.print(",<"+RGF.regList.get(j).register+","+RGF.regList.get(j).value+">");
+		System.out.print("\nDAM:" + "<"+DAM.addList.get(0).address+","+DAM.addList.get(0).value+">");
+		for(int j=1; j<DAM.addList.size(); j++)
+			System.out.print(",<"+DAM.addList.get(j).address+","+DAM.addList.get(j).value+">");
+		System.out.print("\n");
 	}
 
 	public void decRdFire(){
@@ -294,8 +296,18 @@ class RegisterFile{
 		// System.out.println("here11");
 		// int index = regList.indexOf(regToken.value);
 		int index = -1;
+		int lessThan= 0; int regInt = 0; int regTokenInt = 0;
+		String reg = null;
+		regTokenInt = Integer.parseInt(regToken.register.replaceAll("[^0-9]", ""));
+		// System.out.println("regTokenInt = " + regTokenInt);
+		// System.out.print("regInt = ");
 		for(int indexL=0;indexL<regList.size();indexL++){
-			if(regToken.register.equals(regList.get(indexL).register)){
+			reg = regList.get(indexL).register;
+			regInt = Integer.parseInt(reg.replaceAll("[^0-9]", ""));
+			// System.out.print(" " + regInt);
+			if(regTokenInt >= regInt)
+				lessThan = indexL;
+			if(regToken.register.equals(reg)){
 				index = indexL;
 				break;
 			} else{
@@ -303,10 +315,14 @@ class RegisterFile{
 			}			
 		}
 		if(index != -1){
-			regList.remove(index);
-			regList.add(regToken);
+			// regList.remove(index);
+			// regList.add(regToken);
+			// System.out.println("index = " + index);
+			regList.set(index, regToken);
 		} else{
-			regList.add(regToken);
+			// regList.add(regToken);
+			// System.out.println("lessThan = " + lessThan);
+			regList.add(lessThan+1, regToken);
 		}
 	}
 
@@ -342,10 +358,20 @@ class DataMemory{
 	public void storeDataMemory(Address addrToken){
 		// System.out.println("addrToken.address = " + addrToken.address);
 		int index = -1;
+		int lessThan= 0; int addrInt = 0; int addrTokenInt = 0;
+		int addr = 0;
+		addrTokenInt = addrToken.address;
+
 		// for(int h=0;h<addList.size();h++)
 		// 	System.out.print(addList.get(h).address + " , ");
 		for(int indexL=0;indexL<addList.size();indexL++){
-			if(addrToken.address == addList.get(indexL).address){
+			addr = addList.get(indexL).address;
+			addrInt = addr;
+			// System.out.print(" " + regInt);
+			if(addrTokenInt >= addrInt)
+				lessThan = indexL;
+
+			if(addrToken.address == addr){
 				index = indexL;
 				break;
 			} else{
@@ -356,10 +382,12 @@ class DataMemory{
 		// int index = addList.indexOf(addrToken.address);
 		// System.out.println("index = " + index);
 		if(index != -1){
-			addList.remove(index);
-			addList.add(addrToken);
+			// addList.remove(index);
+			// addList.add(addrToken);
+			addList.set(index, addrToken);
 		} else{
-			addList.add(addrToken);
+			// addList.add(addrToken);
+			addList.add(lessThan+1, addrToken);
 		}
 	}
 
