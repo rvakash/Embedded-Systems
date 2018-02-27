@@ -40,6 +40,14 @@ public class MIPSsim{
 	}
 
 	public void startSimulation(){
+		try{
+			PrintStream fileStream = new PrintStream("simulation.txt");
+			System.setOut(fileStream);
+		} catch(IOException e ){
+			e.printStackTrace();
+		} catch(Exception e){
+			e.printStackTrace();
+		}
 		System.out.print("STEP " + i++ + ":");
 		display();	
 		// while(decCanFire() || iss1CanFire() || iss2CanFire() || asuCanFire() || mlu1CanFire() || addrCanFire() || mlu2CanFire() || strCanFire() || wrCanFire() || rdCanFire() ){

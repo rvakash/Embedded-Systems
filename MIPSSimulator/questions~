@@ -1,8 +1,0 @@
-How many tokens are present in INB ?
-What does it mean by Assume that it knows the top (in-order) instruction in the Instruction Memory (INM). ?
-It checks for the availability of the source operands in the Register File (RGF), if not available ?
-Can I make decode and read as single transitions ?
-Is it taken for granted that 2 tokens will definitely come from read to INB, so there not be a checking or the transition not firing without 2 tokens.
-Clarity needed in store operation - <ST, R7, R1, 4>  DataMemory [R1+4] = R7
-Inst 10 is dependent on inst 6, R6. Is it taken that there wont be an error condition where, ST is requiring some Register which is not there in register file ?
-What is a PRB ?
