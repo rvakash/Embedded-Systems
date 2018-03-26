@@ -1,0 +1,29 @@
+Name : Akash R Vasishta 
+UFID : 53955080
+Date : 03/26/2018
+
+I. Files Included
+-----------------
+
+SIM.java     - Implements Code compression and decompression using dictionary based encoding techniques.
+original.txt - This file has the input instructions.
+cout.txt     - This file has the compressed output.
+dout.txt     - This file has the decompressed output.
+
+II. How to run the simulator
+---------------------------
+
+Command Line Arguments and outputs
+
+Step1 : javac SIM.java
+
+For Code Compression - 
+Step2 : java SIM 1 
+
+For Code Decompression -
+Step2 : java SIM 2
+
+II. Description
+---------------
+
+Read project2.pdf for the detailed problem description.
