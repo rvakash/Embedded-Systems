@@ -10,7 +10,15 @@ original.txt - This file has the input instructions.
 cout.txt     - This file has the compressed output.
 dout.txt     - This file has the decompressed output.
 
-II. How to run the simulator
+II. Environment 
+---------------
+
+OS            - Ubuntu 14.04 LTS (64-bit)
+Java Compiler - javac 1.8.0_162 (64-bit)
+JDK           - openjdk version "1.8.0_162"
+JRE           - OpenJDK Runtime Environment (build 1.8.0_162-8u162-b12-1~14.04-b12)
+
+III. How to run the simulator
 ---------------------------
 
 Command Line Arguments and outputs
@@ -23,7 +31,12 @@ Step2 : java SIM 1
 For Code Decompression -
 Step2 : java SIM 2
 
-II. Description
+IV. Description
 ---------------
 
 Read project2.pdf for the detailed problem description.
+
+V. Note
+-------
+
+Please setup your environment according to II. I have used Java8 Streams which is not present in Java7.
