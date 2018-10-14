@@ -4,7 +4,7 @@ Date : 02/26/2018
 
 ## __PetriNet SIMULATOR for MIPS Processor__
 
-![Alt text](https://github.com/rvakash/Embedded-Systems/tree/master/MIPSSimulator/mips.gif)
+![](https://github.com/rvakash/Embedded-Systems/tree/master/MIPSSimulator/mips.gif)
 
 
 I. Files Included
