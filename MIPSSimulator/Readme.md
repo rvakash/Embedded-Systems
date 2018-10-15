@@ -2,7 +2,7 @@ Name : Akash R Vasishta
 UFID : 53955080
 Date : 02/26/2018
 
-## __PetriNet SIMULATOR for MIPS Processor__
+## __PetriNet Simulator for MIPS Processor__
 
 ![](mips.gif)
 
