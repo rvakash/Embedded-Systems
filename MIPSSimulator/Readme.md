@@ -1,8 +1,7 @@
-Name : Akash R Vasishta 
-UFID : 53955080
-Date : 02/26/2018
-
-## __PetriNet Simulator for MIPS Processor__
+# __PetriNet Simulator for MIPS Processor__
+* Name : Akash R Vasishta 
+* UFID : 53955080
+* Date : 02/26/2018
 
 ![](mips.gif)
 
@@ -21,11 +20,11 @@ II. How to run the simulator
 
 Command Line Arguments and outputs
 
-Step1 : javac MIPSsim.java
-Step2 : java MIPSsim
+1. $javac MIPSsim.java
+2. $java MIPSsim
 
 
-II. Description
+III. Description
 ---------------
 
-Read project1.pdf for the problem description
+Read ProblemStatement.pdf for the problem description
